@@ -14,19 +14,34 @@ class MainWindowLayout < MK::WindowLayout
       add NSScrollView, :scroll_view_left do
         has_vertical_scroller true
         frame v.superview.bounds
+        width 300
 
         document_view add NSOutlineView, :outline_view
       end
 
-      add NSScrollView, :scroll_view_right do
-        frame v.superview.bounds
-        autoresizing_mask NSViewWidthSizable | NSViewHeightSizable
-        has_vertical_scroller true
+      @right_view = add NSView, :right_view do
+        set_autoresizes_subviews true
 
-        document_view add NSTableView, :table_view
       end
 
     end
+  end
+
+  def right_view
+    @right_view
+  end
+
+  def clear_right_view
+    right_view = context get(:right_view)
+    right_view.setSubviews []
+  end
+
+  def set_right_sub_view sub_view
+
+    context get(:right_view) do
+      add sub_view
+    end
+
   end
 
   def outline_view_column
@@ -48,24 +63,5 @@ class MainWindowLayout < MK::WindowLayout
 
   end
 
-  def table_view_style
-    uses_alternating_row_background_colors true
-    row_height 24
-    parent_bounds = v.superview.bounds
-    frame parent_bounds
-
-    add_column('name') do
-      title 'Name'
-      min_width 102
-      width 170
-      resizing_mask NSTableColumnUserResizingMask
-    end
-    add_column('role') do
-      title 'Role'
-      min_width 102
-      width parent_bounds.size.width - 170
-      resizingMask NSTableColumnAutoresizingMask
-    end
-  end
 
 end

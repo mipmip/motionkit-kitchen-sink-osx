@@ -8,84 +8,59 @@ class MainWindowController < NSWindowController
     super.tap do
       self.window = layout.window
     end
-    @contributors = [
-      { name: 'Jamon Holmgren', role: 'Owner' },
-      { name: 'Colin T.A. Gray', role: 'Owner' },
-    ]
 
-    @table_view = @layout.get(:table_view)
-    @table_view.delegate = self
-    @table_view.dataSource = self
+    @displayItem = {
+      "Children" => [
+        {
+          "Title" => "Data views",
+          "Children" =>
+          [
+            {"Title" => "NSTableView", "Class"=>'KitchenSinkNSTableview'},
+            {"Title" => "NSOutlineView"},
+            {"Title" => "SourceList"}
+          ]},
+          {"Title" => "Buttons"},
+          {"Title" => "Text Fields"}
+      ]}
+
 
     @outline_view = @layout.get(:outline_view)
     @outline_view.outlineTableColumn = @layout.outline_view_column
     @outline_view.delegate = self
     @outline_view.dataSource = self
   #  @outline_view.reloadData
-  end
 
-  def numberOfRowsInTableView(table_view)
-    @contributors.length
-  end
-
-  def tableView(table_view, viewForTableColumn: column, row: row)
-    text_field = table_view.makeViewWithIdentifier(column.identifier, owner: self)
-
-    unless text_field
-      text_field = NSTextField.alloc.initWithFrame([[0, 0], [column.width, 0]])
-      text_field.identifier = column.identifier
-      text_field.editable = false
-      text_field.drawsBackground = false
-      text_field.bezeled = false
-    end
-
-    row = @contributors[row]
-
-    case column.identifier
-    when 'name'
-      text_field.stringValue = row[:name]
-    when 'role'
-      text_field.stringValue = row[:role]
-    end
-
-    return text_field
-  end
-
-  def tableViewColumnDidResize(notification)
-    # notification.object
-    # notification.userInfo['NSTableColumn']
-    # notification.userInfo['NSTableColumn'].width
-    # notification.userInfo['NSOldWidth']
   end
 
   def outlineView _, numberOfChildrenOfItem: item
-    #p 'numberOfRowsInTableView'
-    item == nil ? 15 : 0
+    item.nil? ? 1 : item["Children"].length
   end
 
+
+  def outlineViewSelectionDidChange(notification)
+    selected_item = @outline_view.itemAtRow(@outline_view.selectedRow)
+    p selected_item
+
+    @table_view = KitchenSinkNSTableviewController.new
+    @table_view_layout = @table_view.layout
+
+#    p @table_view.get_root
+    @scroll_view = @table_view_layout.get :scroll_view
+    @layout.set_right_sub_view  @scroll_view
+    @layout.reapply!
+  end
+
+
   def outlineView(outlineView, isItemExpandable:item)
-    p "isItemExpandable"
-    p item
-    false
+    item.nil? ? false : (item["Children"].nil? ? false : item["Children"].length != 0)
   end
 
   def outlineView(outlineView, child:index, ofItem:item)
-   # p "child of Item"
-    p "child_index: #{index} of item:#{item}"
-    nil
+    item.nil? ? @displayItem : item["Children"][index]
   end
 
   def outlineView _, objectValueForTableColumn: column, byItem: item
-    p "item value for column:"
-    p  column
-    p " by item:"
-    p item
-#    p 'objectValueForTableColumn'
-    'test'
+    item["Title"].nil? ? "Root" : item["Title"]
   end
-
-
-
-
 
 end
