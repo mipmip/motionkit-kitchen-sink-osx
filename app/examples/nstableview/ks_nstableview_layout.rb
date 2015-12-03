@@ -1,48 +1,25 @@
 class KitchenSinkNSTableviewLayout < MK::WindowLayout
   def layout
-    root(NSScrollView, :scroll_view) do
-#      add NSView, :outer_view do
+    root(NSScrollView, :outer_view) do
 
-#          top.equals(:superview).plus(0)
-#          left.equals(:superview).plus(0)
-#          right.equals(:superview).plus(0)
-#          bottom.equals(:superview).plus(0)
-
-      #frame v.superview.bounds
-
-      frame [[100, 100], [480, 360]]
-      #height v.superview.bounds.size.height - 80
+      frame [[0, 0], [480, 360]]
 
       autoresizing_mask NSViewWidthSizable | NSViewHeightSizable
       has_vertical_scroller true
+      set_autoresizes_subviews true
 
       document_view add NSTableView, :table_view
     end
-
-  #      add NSButton, :but do
-  #        title "hallo"
-  #        constraints do
-  #          height 22
-  #          width 100
-  #          top.equals(:superview).plus(10)
-  #          left.equals(:superview).plus(10)
-  #        end
-  #      end
-
- #     end
   end
 
   def table_view_style
-#    top.equals(:superview).plus(100)
-#    left.equals(:superview).plus(0)
-#    right.equals(:superview).plus(0)
-#    bottom.equals(:superview).plus(0)
 
     uses_alternating_row_background_colors true
     row_height 24
     parent_bounds = v.superview.bounds
     frame parent_bounds
-    height parent_bounds.size.height - 50
+
+    autoresizing_mask NSViewWidthSizable | NSViewHeightSizable
 
     add_column('name') do
       title 'Name'
@@ -57,8 +34,4 @@ class KitchenSinkNSTableviewLayout < MK::WindowLayout
       resizingMask NSTableColumnAutoresizingMask
     end
   end
-
-
-
-
 end

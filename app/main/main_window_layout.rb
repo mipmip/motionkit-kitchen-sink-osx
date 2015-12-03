@@ -20,15 +20,13 @@ class MainWindowLayout < MK::WindowLayout
       end
 
       @right_view = add NSView, :right_view do
+        frame v.superview.bounds
+        width v.superview.bounds.size.width - 300
+
         set_autoresizes_subviews true
 
       end
-
     end
-  end
-
-  def right_view
-    @right_view
   end
 
   def clear_right_view
@@ -37,11 +35,9 @@ class MainWindowLayout < MK::WindowLayout
   end
 
   def set_right_sub_view sub_view
-
     context get(:right_view) do
       add sub_view
     end
-
   end
 
   def outline_view_column
@@ -50,7 +46,7 @@ class MainWindowLayout < MK::WindowLayout
 
   def outline_view_style
     header_view nil
-    focus_ring_type    NSFocusRingTypeNone
+    focus_ring_type NSFocusRingTypeNone
     parent_bounds = v.superview.bounds
     frame parent_bounds
 
@@ -60,8 +56,5 @@ class MainWindowLayout < MK::WindowLayout
       editable false
       width parent_bounds.size.width
     end
-
   end
-
-
 end

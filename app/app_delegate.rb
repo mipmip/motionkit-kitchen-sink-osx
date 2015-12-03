@@ -8,7 +8,6 @@ class AppDelegate
     @main_controller = MainWindowController.alloc.init
     @main_controller.showWindow(self)
     @main_controller.window.orderFrontRegardless
-
+    @main_controller.expand_menu
   end
-
 end
