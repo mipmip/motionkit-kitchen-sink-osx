@@ -12,9 +12,10 @@ class MainWindowLayout < MK::WindowLayout
       vertical true
 
       add NSScrollView, :scroll_view_left do
+#        self.translatesAutoresizingMaskIntoConstraints = true
         has_vertical_scroller true
         frame v.superview.bounds
-        width 300
+        translatesAutoresizingMaskIntoConstraints
 
         document_view add NSOutlineView, :outline_view
       end

@@ -16,7 +16,7 @@ To create a new menu entry and a view with elements do the following
 
 Below a todo list in the shape of a roadmap.
 
-Sprint 1
+### Sprint 1
 
 - [x] Overall Interface
 - [x] NSTableView
@@ -24,9 +24,16 @@ Sprint 1
 - [x] auto load examples
 - [-] Series of Buttons
 
-Sprint 2
+### Sprint 2
 
+- [x] rename app
+- [x] add constraints
+- [x] browser
+
+- [ ] Bug: when choosing browser right view is resized
+- [ ] slider
 - [ ] More buttons
+- [ ] pdf viewer
 - [ ] Source List
 - [ ] NSTableView with sorting etc ...
 - [ ] Status Bar

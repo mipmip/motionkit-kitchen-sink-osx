@@ -1,4 +1,4 @@
-class KitchenSinkNSButtonLayout < MK::WindowLayout
+class KitchenSinkNSButtonLayout < MK::Layout
   def layout
     root(NSView, :outer_view) do
 
