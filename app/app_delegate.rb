@@ -1,5 +1,5 @@
 class AppDelegate
-  attr :main_menu_layout
+  attr :main_menu_layout, :image_from_internet
 
   def applicationDidFinishLaunching(notification)
     @main_menu_layout = MainMenu.new
@@ -9,5 +9,7 @@ class AppDelegate
     @main_controller.showWindow(self)
     @main_controller.window.orderFrontRegardless
     @main_controller.expand_menu
+
+
   end
 end

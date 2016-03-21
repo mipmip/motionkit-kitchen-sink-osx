@@ -15,16 +15,16 @@ Motion::Project::App.setup do |app|
   app.frameworks += ['Quartz', 'PubSub']
   app.info_plist['NSAppTransportSecurity'] = { 'NSAllowsArbitraryLoads' => true }
 
-  app.info_plist['NSAppTransportSecurity'] = {
-    'NSExceptionDomains' => {
-      'flickr.com' => {
-        'NSTemporaryExceptionAllowsInsecureHTTPLoads' => true,
-        'NSIncludesSubdomains' => true
-      },
-      'staticflickr.com' => {
-        'NSTemporaryExceptionAllowsInsecureHTTPLoads' => true,
-        'NSIncludesSubdomains' => true
-      }
-    }
-  }
+#  app.info_plist['NSAppTransportSecurity'] = {
+#    'NSExceptionDomains' => {
+#      'flickr.com' => {
+#        'NSTemporaryExceptionAllowsInsecureHTTPLoads' => true,
+#        'NSIncludesSubdomains' => true
+#      },
+#      'staticflickr.com' => {
+#        'NSTemporaryExceptionAllowsInsecureHTTPLoads' => true,
+#        'NSIncludesSubdomains' => true
+#      }
+#    }
+#  }
 end
